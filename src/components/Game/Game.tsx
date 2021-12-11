@@ -10,8 +10,6 @@ import "./Game.scss";
 export const Game = () => {
   const genCharInfo = useObservable(progressService.genCharInfo);
   const gameInfo = useObservable(gameService.gameInfo);
-  console.log((document.querySelector('.Map') as HTMLElement));
-  
 
   return (
     <div className="game">
