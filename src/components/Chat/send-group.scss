@@ -1,0 +1,43 @@
+@import "/home/hoqu/Dev/sofsw_pwa/src/lib/variables.scss";
+@import "../../App.scss";
+
+.bottom-group {
+  position: sticky;
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+  padding: 2em;
+  bottom: 3em;
+  right: 0;
+  // padding-bottom: 4em;
+}
+
+.chat-input {
+  @include theme(background-color, bg);
+  @include theme(border, textColor, 2px solid);
+  @include theme(box-shadow, shadow, 2px 4px 8px 0px);
+  padding: 0.5em;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 1rem;
+  font-family: 'Minion';
+
+  &:focus {
+    outline: none;
+    border-color: royalblue;
+    background-color: white;
+  }
+}
+
+.button-send {
+  position: absolute;
+  @include button-reset;
+  font-size: 1.5em;
+  padding: 0 1em;
+  margin-right: 2px;
+  @include theme(border-left, textColor, 2px solid);
+
+  &:active {
+    color: royalblue;
+  }
+}

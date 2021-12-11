@@ -1,0 +1,41 @@
+.progress-bar {
+    position: relative;
+    display: table;
+    width: 100%;
+    float: left;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background-color: rgba(180, 179, 179, 0.397);
+    margin-top: 5px;
+}
+.pb {
+    position: relative;
+    display: table-cell;
+    text-align: center;
+    // font-weight: bold;
+    border-right: 1px solid white;
+}
+
+.bar {
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 33%;
+    left: 0;
+}
+
+.bar.hp {
+    background-color: red;
+}
+.bar.en {
+    background: dodgerblue;
+}
+.bar.xp {
+    background: yellow;
+}
+
+.pbSpan {
+    z-index: 3;
+}
+

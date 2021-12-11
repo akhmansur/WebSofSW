@@ -1,0 +1,25 @@
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  border: 2px solid #333;
+  box-shadow: 2px 2px 2px #222;
+  z-index: 10;
+
+  min-width: 200px;
+}
+
+.dropdown-menu-item {
+  display: block;
+  padding: 10px;
+
+  &:active {
+    background-color: lightgray;
+  }
+
+  &.last {
+    box-shadow: none;
+  }
+}
+

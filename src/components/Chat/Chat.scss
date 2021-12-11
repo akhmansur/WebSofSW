@@ -1,0 +1,185 @@
+@import "/home/hoqu/Dev/sofsw_pwa/src/lib/variables.scss";
+@import "./send-group.scss";
+@import "../../App.scss";
+
+.chat {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.chat-room-des {
+  background: rgb(203, 203, 203);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(230, 230, 230, 1) 100%
+  );
+  @include theme(background, navbarTopGradient);
+  width: 100%;
+  height: 3em;
+  text-align: center;
+  box-shadow: 0 5px 8px #222;
+  padding-top: 0.5em;
+  margin-bottom: 0.6em;
+}
+
+.rooms {
+  display: none;
+  position: relative;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  @include theme(background, navbarTopGradient);
+  min-width: 160px;
+  max-width: 15em;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 6px 12px;
+  z-index: 10;
+
+  &:hover {
+    display: block;
+  }
+}
+
+.chat-room-des:hover .rooms {
+  display: block;
+}
+
+.room {
+  position: relative;
+  border-bottom: 1px solid #999;
+  &:hover {
+    display: block;
+  }
+}
+
+//Room Messages
+//----------------------------------------------------------------------------------
+
+.room-messages {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 100%;
+  &::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 6em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa;
+    border-radius: 6em;
+  }
+}
+
+.self-message, .message {
+  position: relative;
+  display: table;
+  max-width: 90%;
+  padding: 0.6em;
+  border-radius: 0.9em;
+  margin: {
+    left: 2em;
+    right: 2em;
+    bottom: 0.3em;
+  };
+}
+
+.self-message {
+  @include theme(background, messageSelf);
+  margin-left: auto;
+
+  &:after {
+    @include theme(background, messageSelf);
+    border-radius: 0 0 100% 100% / 0 0 50% 50%;
+    bottom: 0.5em;
+    content: "";
+    height: 1.2em;
+    margin-top: -5px;
+    position: absolute;
+    right: -1.2em;
+    width: 1.2em;
+    z-index: -1;
+  }
+
+  &:before {
+    @include theme(background, bg);
+    border-radius: 50%;
+    border-right: 0;
+    bottom: 0.8em;
+    content: "";
+    height: 2em;
+    margin-top: -5px;
+    position: absolute;
+    right: -2em;
+    width: 2em;
+    z-index: 1;
+  }
+}
+
+.message {
+  @include theme(background, message);
+
+  &:after {
+    @include theme(background, message);
+    border-radius: 50% 0 0 100% / 50% 0 0 100%;
+    bottom: 0.7em;
+    content: "";
+    height: 1.2em;
+    margin-top: -5px;
+    margin-right: -5px;
+    position: absolute;
+    left: -1.2em;
+    width: 1.2em;
+    z-index: -1;
+  }
+
+  &:before {
+    @include theme(background, bg);
+    border-radius: 50%;
+    border-right: 0;
+    bottom: 1em;
+    content: "";
+    height: 2em;
+    margin-top: -5px;
+    margin-right: -5px;
+    position: absolute;
+    left: -2em;
+    width: 2em;
+    z-index: 1;
+  }
+}
+
+.btn-history {
+  position: relative;
+  display: block;
+  @include theme(background, navbarTopGradient);
+  margin-top: -0.6em;
+  max-width: 20%;
+  z-index: 3;
+  border: 1px solid #222;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 0.2rem;
+  font-weight: bold;
+  font-family: "minion";
+
+  &:active {
+    background: linear-gradient(
+      180deg,
+      rgba(200, 200, 200, 1) 0%,
+      rgba(230, 230, 230, 1) 100%
+    );
+  }
+}

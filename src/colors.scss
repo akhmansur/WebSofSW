@@ -1,0 +1,9 @@
+@import './lib/theming/mixins.scss';
+/** this section generates a theme map for each theme **/
+$themes: ();
+$themeValues: ();
+@import './lib/theming/light.scss';
+@include generateThemeMappings(light, $light);
+@import './lib/theming/dark.scss';
+@include generateThemeMappings(dark, $dark);
+/** end theme generation **/

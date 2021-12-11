@@ -1,0 +1,39 @@
+.game {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow-y: auto;
+  height: auto;
+  max-height: 100%;
+  &::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 6em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa;
+    border-radius: 6em;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.5em;
+    border: 2px solid black;
+    color: darkblue;
+    margin-left: 0.2em;
+    margin-top: 0.2em;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}
+
+.main {
+  max-width: calc(100% - 1em);
+  padding: 0.5em;
+}

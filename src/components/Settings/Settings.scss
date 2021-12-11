@@ -1,0 +1,90 @@
+@import "../../App.scss";
+@import "../../lib/variables.scss";
+
+.backdrop {
+  position: fixed;
+  // background: rgba(32, 34, 34, 0.7);
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  transform: translateX(-100vw);
+  transition: transform 0.5s ease 0s;
+}
+
+.settings-title {
+  font-size: 2rem;
+}
+
+.settings {
+  padding: 2em;
+  height: 100%;
+  max-width: 25rem;
+  color: #dddddd;
+  @include theme(background-color, shadow);
+  @include theme(box-shadow, shadow, 0px 4px 8px 0px);
+
+  input[type="color"] {
+    margin-left: 0.2em;
+  }
+}
+
+.active {
+  display: block;
+  transform: translateX(0);
+}
+
+.theme-buttons {
+  .light,.dark {
+    display: inline-block;
+    padding: 1em;
+    margin-left: 1em;
+    border-radius: 0.5em;
+    border: none;
+    font-weight: bold;
+  }
+
+  .light {
+    background-color: #eeeeee;
+    &.active {
+      @include theme(outline, messageSelf, 2px solid);
+    }
+  }
+
+  .dark {
+    background-color: #333333;
+    &.active {
+      @include theme(outline, messageSelf, 2px solid);
+    }
+  }
+}
+
+.color-box {
+  padding: 0.5em;
+  margin-bottom: 0.2em;
+}
+
+.save-buttons {
+  display: inline-block;
+  margin-top: auto;
+  width: 100%;
+  text-align: right;
+
+  .accept, .reset {
+    @include button-reset();
+    display: inline-block;
+    padding: 0.5em;
+    margin-left: 1em;
+    border: 1px solid #eeeeee;
+    border-radius: 0.3em;
+  }
+
+  .accept {
+    background-color: rgb(58, 168, 54)
+  }
+
+  .reset {
+    background-color: rgb(182, 59, 59);
+  }
+}

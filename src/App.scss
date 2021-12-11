@@ -1,0 +1,99 @@
+@import "/home/hoqu/Dev/sofsw_pwa/src/lib/variables.scss";
+
+@import './colors.scss';
+
+html {
+  @include generateThemeVariables;
+  height: 100%;
+}
+
+
+body {
+  touch-action: none;
+  @include theme(background-color, bg);
+  @include theme(color, textColor);
+}
+
+.App {
+  max-height: 100%;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.App-header {
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(assets/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Minion';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Minion'),
+    url(assets/fonts/MinionPro-Regular.ttf) format('truetype');
+}
+
+.minion {
+  font-family: 'Minion';
+  @include theme(color, textColor);
+  font-size: 1.2em;;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-color: none;
+}
+
+.fragment {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: calc(100% - 4rem);
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+.active {
+  left: 0;
+  z-index: 30;
+}

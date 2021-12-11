@@ -1,0 +1,18 @@
+@import './functions';
+$light: ( 
+  bg: color(laser),
+  textColor: color(black),
+  message: color(alto),
+  messageSelf: color(pictonBlue),
+  navbarTopGradient: linear-gradient(
+    0deg,
+    white 0%,
+    rgba(220, 220, 220, 1) 100%
+  ),
+  navbarBottomGradient: linear-gradient(
+    0deg,
+    rgba(220, 220, 220, 1) 0%,
+    white 100%
+  ),
+  shadow: color(mako),
+);
