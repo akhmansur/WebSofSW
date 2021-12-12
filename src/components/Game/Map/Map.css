@@ -2,8 +2,9 @@
   position: relative;
   display: inline-block;
   height: 30vh;
-  width: 100%;
+  width: 100vw;
   text-align: center;
   min-height: 200px;
   text-align: center;
+  
 }

@@ -91,12 +91,12 @@ function handleMouseMove(
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
 
     if (xDiff > 0) {
-      if (xDiff > 200) {  //right swipe
+      if (xDiff > 150) {  //right swipe
         setPoints({x: null, y: null})
         active === fragmentsCount-1 ? swipeService.setActive(0) : swipeService.setActive(active + 1);
       }
     } else {
-      if (xDiff < -200) {  //left swipe
+      if (xDiff < -150) {  //left swipe
         setPoints({x: null, y: null})
         active === 0 ? swipeService.setActive(fragmentsCount-1) : swipeService.setActive(active - 1);
         if(points.x <10 && active === 0) {
@@ -139,12 +139,12 @@ function handleTouchMove(
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
 
     if (xDiff > 0) {
-      if (xDiff > 200) {  //right swipe
+      if (xDiff > 150) {  //right swipe
         setPoints({x: null, y: null})
         active === fragmentsCount-1 ? swipeService.setActive(0) : swipeService.setActive(active + 1);
       }
     } else {
-      if (xDiff < -200) {  //left swipe
+      if (xDiff < -150) {  //left swipe
         setPoints({x: null, y: null})
         active === 0 ? swipeService.setActive(fragmentsCount-1) : swipeService.setActive(active - 1);
         if(points.x <10 && active === 0) {
