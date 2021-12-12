@@ -295,6 +295,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               onClick={() => {
                 this.setTheme(this.state.theme);
                 saveColorsToLS(this.state.colors, this.state.theme);
+                swipeService.backdropActive.set(false)
               }}
             >
               Применить
