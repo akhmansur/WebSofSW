@@ -2,9 +2,8 @@
   position: relative;
   display: inline-block;
   height: 30vh;
-  width: 100vw;
+  width: 100%;
   text-align: center;
   min-height: 200px;
   text-align: center;
-  
 }
