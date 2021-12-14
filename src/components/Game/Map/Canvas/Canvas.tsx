@@ -47,7 +47,7 @@ const Canvas = ({emoji}: CanvasProps) => {
               img.onload = function () {
                 ctx.drawImage(img, hmc + i * rz, vmc - j * rz);
               };
-              let imgSrc = getImage(mapP[pt])
+              let imgSrc = getImage(mapP[pt], theme.charAt(0))
               img.src = imgSrc? imgSrc: "";
             }
           }
