@@ -1,38 +1,55 @@
+@import '../../../App.scss';
+
 .progress-bar {
     position: relative;
-    display: table;
-    width: 100%;
+    width: calc(100% - 1em);
     float: left;
     top: 0;
     left: 0;
     z-index: -2;
-    background-color: rgba(180, 179, 179, 0.397);
     margin-top: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row nowrap;
+    padding: {
+        left: 0.5em;
+        right: 0.5em;
+    };
 }
 .pb {
     position: relative;
-    display: table-cell;
+    z-index: 0;
+    width: 100%;
+    padding: {
+        right: 0.5em;
+    };
+}
+.pbSpan {
+    display: inline-block;
+    position: relative;
+    width: 100%;
     text-align: center;
-    // font-weight: bold;
-    border-right: 1px solid white;
+    @include theme(background-color, pbBackground);
+    border-radius: 0.7em;
 }
 
 .bar {
     position: absolute;
     z-index: -1;
     height: 100%;
-    width: 33%;
+    // width: 33%;
     left: 0;
+    border-radius: 0.7em;
 }
 
 .bar.hp {
-    background-color: red;
+    background: linear-gradient(180deg, rgb(252, 126, 126) 0%, rgba(255,9,9,1) 50%, rgb(250, 94, 94) 100%);
 }
 .bar.en {
-    background: dodgerblue;
+    background: linear-gradient(180deg, rgba(134,183,255,1) 0%, rgba(9,134,255,1) 50%, rgba(88,156,255,1) 100%);
 }
 .bar.xp {
-    background: yellow;
+    background: linear-gradient(180deg, rgba(255,255,134,1) 0%, rgba(241,255,9,1) 50%, rgba(245,255,82,1) 100%);;
 }
 
 .pbSpan {

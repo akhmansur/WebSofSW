@@ -11,33 +11,33 @@ const ProgressBar = () => {
 
   return (
     <div className="progress-bar minion">
+      {progress.hp.des}
       <div className="pb">
         <span className="pbSpan">
           <div
             className="bar hp"
             style={{ width: hpBarWidth < 0 ? 0 : hpBarWidth + "%" }}
           ></div>
-          {progress.hp.des}
           {progress.hp.current}/{progress.hp.max}
         </span>
       </div>
+      {progress.sp.des}
       <div className="pb">
         <span className="pbSpan">
           <div
             className="bar en"
             style={{ width: spBarWidth < 0 ? 0 : spBarWidth + "%" }}
           ></div>
-          {progress.sp.des}
           {progress.sp.current}/{progress.sp.max}
         </span>
       </div>
+      {progress.pt.des}
       <div className="pb">
         <span className="pbSpan">
           <div
             className="bar xp"
             style={{ width: ptBarWidth < 0 ? 0 : ptBarWidth + "%" }}
           ></div>
-          {progress.pt.des}
           {progress.pt.current}/{progress.pt.max}
         </span>
       </div>
