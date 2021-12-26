@@ -12,6 +12,7 @@ export class GameClient {
   private commands: string[];
   private tick: number = 0;
   private tock: number = 0;
+  private loop: NodeJS.Timer | null = null;
 
   private constructor(client: Client, commands?: string[]) {
     this.client = client;
@@ -36,13 +37,20 @@ export class GameClient {
   }
 
   public startInterval() {
-    setInterval(() => {
+    this.loop = setInterval(() => {
       try {
         this.sendCommand();
       } catch (e) {
         throw new Error("send error");
       }
-    }, 1100);
+    }, 1100)
+  }
+
+  public clearInterval(){
+    if(this.loop){
+      clearInterval(this.loop)
+      this.loop = null
+    }
   }
 
   public pushCommand(comm: string): void {

@@ -12,7 +12,10 @@ import { Settings } from "./components/Settings/Settings";
 import { swipeService } from "./store/services/services";
 
 export const App = () => {
-  useEffect(() => gameClient.startInterval(),[])
+  useEffect(() => {
+    gameClient.startInterval();
+    return () => gameClient.clearInterval();
+  }, []);
   let fragmentsAmount = 3;
   let menuIcons: string[] = [
     "sports_esports",
@@ -37,7 +40,7 @@ export const App = () => {
           <Console></Console>
         </div>
       </SwipeListener>
-      <Settings isActive={swipeService.backdropActive.get()}/>
+      <Settings isActive={swipeService.backdropActive.get()} />
       <NavBar frProps={menuIcons} amount={fragmentsAmount} />
     </>
   );
