@@ -21,9 +21,9 @@ interface IChatState {
   menuPos: DropdownPos;
   menuState: DropdownState;
   chat: {
-    roomDes: Room;
-    rooms: Room[];
-    messages: ChatMessage[];
+    $roomDes: Room;
+    $rooms: Room[];
+    $messages: ChatMessage[];
   };
   nick: string | null;
   input: string;
@@ -40,9 +40,9 @@ const initialState = {
     isShown: false,
   },
   chat: {
-    roomDes: chatService.roomDes.get(),
-    messages: chatService.messages.get(),
-    rooms: chatService.rooms.get(),
+    $roomDes: chatService.roomDes.get(),
+    $messages: chatService.messages.get(),
+    $rooms: chatService.rooms.get(),
   },
   nick: null,
   input: "",
@@ -62,9 +62,9 @@ class Chat extends React.Component {
   componentDidMount() {
     this.setState({
       chat: {
-        roomDes: chatService.roomDes.get(),
-        messages: chatService.messages.get(),
-        rooms: chatService.rooms.get(),
+        $roomDes: chatService.roomDes.get(),
+        $messages: chatService.messages.get(),
+        $rooms: chatService.rooms.get(),
       },
     });
     this.subs = [
@@ -80,6 +80,7 @@ class Chat extends React.Component {
     this.subs.map((el: any) => el());
     this.subs = [];
   }
+
 
   updateState(name: string, getter: any): void {
     this.setState({ chat: { ...this.state.chat, [name]: getter } });
@@ -123,24 +124,24 @@ class Chat extends React.Component {
           onClick={() => RoomListCommand.Execute()}
         >
           <div>
-            {this.state.chat.roomDes.name + " в комнате: " +
-              this.state.chat.roomDes.incount + "чел."}
+            {this.state.chat.$roomDes.name + " в комнате: " +
+              this.state.chat.$roomDes.incount + "чел."}
             <br />
-            {this.state.chat.roomDes.des}
+            {this.state.chat.$roomDes.des}
           </div>
           <div
             className="rooms"
             onClick={(e: any) => {
               if (
                 e.target.dataset &&
-                e.target.dataset?.name !== this.state.chat.roomDes.name
+                e.target.dataset?.name !== this.state.chat.$roomDes.name
               ) {
                 ChangeRoomCommand.Execute(e.target.dataset.num);
                 RoomDescrCommand.Execute();
               }
             }}
           >
-            {this.state.chat.rooms.map((el, idx) => {
+            {this.state.chat.$rooms.map((el, idx) => {
               return (
                 <p
                   className="room"
@@ -179,7 +180,7 @@ class Chat extends React.Component {
             });
           }}
         >
-          {this.state.chat.messages.map((el, idx) => {
+          {this.state.chat.$messages.map((el, idx) => {
             if (this.chatminid > el.mid) this.chatminid = el.mid;
             let messageCls = el.from === pname ? "self-message" : "message";
             return (

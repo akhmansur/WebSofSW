@@ -4,21 +4,28 @@ import { swipeService } from "../../store/services/services";
 import { useObservable } from "../../store/observableHook/observableHook";
 
 export const NavBar = (props: any) => {
-  const active = useObservable(swipeService.active)
+  const active = useObservable(swipeService.active);
   return (
-    <div className="menu">
-      {props.frProps.map((el: any, idx: number) => {
-        return (
-          <div className="menu-item" key={"li" + idx} onClick={() => {
-            if(idx === props.frProps.length - 1)
-              swipeService.toggleBackdropActive()
-            else
-              swipeService.setActive(idx)
-            }}>
-            <span className={`material-icons${active === idx? ' active': ''}`}>{el}</span>
-          </div>
-        );
-      })}
-    </div>
+    <nav className="menu">
+      <ul className="menu__list">
+        {props.frProps.map((el: any, idx: number) => {
+          return (
+            <li
+              className={`menu__item${
+                active === idx ? " menu__item_state_active" : ""
+              } material-icons`}
+              key={"ul" + idx}
+              onClick={() => {
+                if (idx === props.frProps.length - 1)
+                  swipeService.toggleBackdropActive();
+                else swipeService.setActive(idx);
+              }}
+            >
+              <span>{el}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };

@@ -46,7 +46,3 @@ export function encodeSpecChars(str:string) {
   if(!str) return '';
   return str.replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"');
 }
-
-export function $(query: string): HTMLElement | null {
-  return document.querySelector(query);
-}

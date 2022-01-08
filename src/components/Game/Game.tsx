@@ -8,22 +8,22 @@ import { convertIndentsToHTML } from "../../lib/utils";
 import "./Game.scss";
 
 export const Game = () => {
-  const genCharInfo = useObservable(progressService.genCharInfo);
-  const gameInfo = useObservable(gameService.gameInfo);
+  const $genCharInfo = useObservable(progressService.genCharInfo);
+  const $gameInfo = useObservable(gameService.gameInfo);
 
   return (
     <div className="game">
       <ProgressBar></ProgressBar>
-      <Map emoji={genCharInfo.emoji}></Map>
+      <Map emoji={$genCharInfo.emoji}></Map>
       <div className="main">
         <span className="minion">
-          {genCharInfo.pname +
+          {$genCharInfo.pname +
             " " +
-            genCharInfo.plev.ldes +
-            genCharInfo.plev.lev}
+            $genCharInfo.plev.ldes +
+            $genCharInfo.plev.lev}
         </span>
         <p className="minion">
-          {gameInfo.text.map((el, idx) => {
+          {$gameInfo.text.map((el, idx) => {
             if (!el) return "";
             else
               return (
@@ -31,20 +31,20 @@ export const Game = () => {
               );
           })}
         </p>
-        {gameInfo.lynk ? (
+        {$gameInfo.lynk ? (
           <a
-            href={gameInfo.lynk.a}
+            href={$gameInfo.lynk.a}
             className="minion"
             target="_blank"
             rel="noreferrer"
           >
-            {gameInfo.lynk.text}
+            {$gameInfo.lynk.text}
           </a>
         ) : (
           ""
         )}
       </div>
-      <CommandButtons buttons={gameInfo.comm} />
+      <CommandButtons buttons={$gameInfo.comm} />
     </div>
   );
 };

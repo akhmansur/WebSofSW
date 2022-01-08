@@ -9,9 +9,9 @@ interface Points {
 
 export const SwipeListener = (props: any) => {
   let [points, setPoints] = useState<Points>({ x: null, y: null });
-  const active = useObservable(swipeService.active)
+  const $active = useObservable(swipeService.active)
   const childWithActiveProp = React.Children.map(props.children,(el: any, idx: number) => {
-    if (active === idx) {
+    if ($active === idx) {
       return React.cloneElement(el, 
         {
           className: `${el.props.className} active`,
@@ -26,7 +26,7 @@ export const SwipeListener = (props: any) => {
         {
           className: `${el.props.className}`,
           style: {
-            transform: `translateX(${(idx - active)*100}vw)`,
+            transform: `translateX(${(idx - $active)*100}vw)`,
             transition: `transform 0.6s`
           }
         });
@@ -40,7 +40,7 @@ export const SwipeListener = (props: any) => {
         handleMouseMove(
           mouseMoveEvent,
           points,
-          active,
+          $active,
           props.children.length,
           setPoints,
         )
@@ -54,7 +54,7 @@ export const SwipeListener = (props: any) => {
         handleTouchMove(
           touchEvent,
           points,
-          active,
+          $active,
           props.children.length,
           setPoints,
         )}

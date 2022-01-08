@@ -12,10 +12,10 @@ interface CanvasProps {
 
 const Canvas = ({emoji}: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mapC = useObservable(mapService.mapC);
-  const mapP = useObservable(mapService.mapP);
-  const point = useObservable(gameService.point)
-  const { theme } = useObservable(settingsService.settings);
+  const $mapC = useObservable(mapService.mapC);
+  const $mapP = useObservable(mapService.mapP);
+  const $point = useObservable(gameService.point)
+  const { theme: $theme } = useObservable(settingsService.settings);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -29,7 +29,7 @@ const Canvas = ({emoji}: CanvasProps) => {
         const cx = x;
         const cy = y;
         let tx, ty;
-        let sImgSrc = getImage("s01", theme.charAt(0))
+        let sImgSrc = getImage("s01", $theme.charAt(0))
         sImg.src = sImgSrc? sImgSrc: '';
         const rz = 16;
         const hmc = Math.round(canvas.width / 2 - 1);
@@ -41,13 +41,13 @@ const Canvas = ({emoji}: CanvasProps) => {
           for (let j = -1 * vdc; j <= vdc + 1; j++) {
             tx = Math.round(cx + i).toString();
             ty = Math.round(cy + j).toString();
-            let pt = mapC.indexOf(tx + ":" + ty);
+            let pt = $mapC.indexOf(tx + ":" + ty);
             if (pt > -1) {
               const img = new Image();
               img.onload = function () {
                 ctx.drawImage(img, hmc + i * rz, vmc - j * rz);
               };
-              let imgSrc = getImage(mapP[pt], theme.charAt(0))
+              let imgSrc = getImage($mapP[pt], $theme.charAt(0))
               img.src = imgSrc? imgSrc: "";
             }
           }
@@ -58,11 +58,11 @@ const Canvas = ({emoji}: CanvasProps) => {
       };
       const render = () => {
         if (context) context.clearRect(0, 0, canvas.width, canvas.height);
-        draw(canvas, context,point.x, point.y, point.c);
+        draw(canvas, context,$point.x, $point.y, $point.c);
       };
       render();
     }
-  }, [point, mapC, mapP, emoji, theme]);
+  }, [$point, $mapC, $mapP, emoji, $theme]);
   
   return <canvas className="canvas" ref={canvasRef} />;
 };

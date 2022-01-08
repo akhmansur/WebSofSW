@@ -10,38 +10,49 @@ interface CmdBtnsProps {
 export const CommandButtons = ({ buttons }: CmdBtnsProps) => {
   const [command, setCommand] = useState<string>("");
   return (
-    <div className="box-buttons">
+    <section className="game-actions">
       {buttons.map((el, idx) => {
         if (el.kay === "name" || el.kay === "X") {
           return (
-            <input
-              className="input minion"
-              value={command}
-              key={'cmd-buttons' + idx}
-              onChange={(e) => {
-                setCommand(e.target.value);
-              }}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  setCommand("")
-                  SimpleCommand.Execute(command)
-                }
-              }}
-            />
+            <>
+              <input
+                className="game-actions__input minion"
+                value={command}
+                key={"cmd-buttons" + idx}
+                onChange={(e) => {
+                  setCommand(e.target.value);
+                }}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    setCommand("");
+                    SimpleCommand.Execute(command);
+                  }
+                }}
+              />
+              <button
+                className="game-actions__button"
+                onClick={(e) => {
+                  setCommand("");
+                  SimpleCommand.Execute(command);
+                }}
+              >
+                OK
+              </button>
+            </>
           );
         }
         return (
-          <div
-            className="minion cmd-btn"
+          <button
+            className="game-actions__button minion"
             key={"cmdBtn" + idx}
             onClick={() => {
-              SimpleCommand.Execute(el.kay)
+              SimpleCommand.Execute(el.kay);
             }}
           >
             {el.ctxt}
-          </div>
+          </button>
         );
       })}
-    </div>
+    </section>
   );
 };
