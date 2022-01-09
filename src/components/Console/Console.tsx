@@ -6,12 +6,12 @@ import { gameService } from "../../store/services/services";
 import "./Console.scss";
 
 export const Console = () => {
-  const textLog = useObservable(gameService.textLog);
+  const $textLog = useObservable(gameService.textLog);
   const [command, setCommand] = useState<string>("");
 
   return (
     <div className="main">
-      {textLog?.map((el, idx) => {
+      {$textLog?.map((el, idx) => {
         return (
           <div className='log-item' key={"log-item" + idx}>
             {convertIndentsToHTML(el)}

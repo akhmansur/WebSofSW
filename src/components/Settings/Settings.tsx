@@ -1,7 +1,6 @@
 import React from "react";
 import { SimpleCommand } from "../../lib/commands";
 import { LocalStorage } from "../../lib/storage";
-import { $ } from "../../lib/utils";
 import { settingsService, swipeService } from "../../store/services/services";
 import "./Settings.scss";
 
@@ -10,8 +9,8 @@ type SettingsProps = {
 };
 
 type SettingsState = {
-  theme: string;
-  backdropActive: boolean;
+  $theme: string;
+  $backdropActive: boolean;
   colors: ColorsState;
 };
 type ColorsState = {
@@ -38,8 +37,8 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     messageSelf: null,
   };
   state: SettingsState = {
-    theme: settingsService.settings.get().theme,
-    backdropActive: false,
+    $theme: settingsService.settings.get().theme,
+    $backdropActive: false,
     colors: this.initialColors,
   };
   styles = window.getComputedStyle(document.documentElement);
@@ -51,36 +50,36 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       (prevState) => {
         return {
           ...prevState,
-          theme: currentTheme,
-          backdropActive: swipeService.backdropActive.get(),
+          $theme: currentTheme,
+          $backdropActive: swipeService.backdropActive.get(),
           colors: {
             ...prevState.colors,
             bg: window
               .getComputedStyle(document.documentElement)
-              .getPropertyValue(`--theme-${this.state.theme}-bg`)
+              .getPropertyValue(`--theme-${this.state.$theme}-bg`)
               .trim(),
             ...colors,
           },
         };
       },
-      () => this.setTheme(this.state.theme)
+      () => this.setTheme(this.state.$theme)
     );
 
     swipeService.backdropActive.subscribe((val: boolean) =>
       this.setState((prevState) => {
-        return { ...prevState, backdropActive: val };
+        return { ...prevState, $backdropActive: val };
       })
     );
     settingsService.settings.subscribe((val) =>
       this.setState((prevState) => {
-        return { ...prevState, theme: val.theme };
+        return { ...prevState, $theme: val.theme };
       })
     );
   }
 
   componentDidUpdate() {
-    let htmlClassName = $("html")?.classList;
-    if (htmlClassName) htmlClassName.value = this.state.theme;
+    let htmlClassName = document.querySelector("html")?.classList;
+    if (htmlClassName) htmlClassName.value = this.state.$theme;
   }
 
   handleThemeChange(e: any, theme: string) {
@@ -147,7 +146,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             <span>Тема: </span>
             <button
               className={
-                "light" + (this.state.theme === "light" ? " active" : "")
+                "light" + (this.state.$theme === "light" ? " active" : "")
               }
               onClick={(e) => this.handleThemeChange(e, "light")}
             >
@@ -155,7 +154,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             </button>
             <button
               className={
-                "dark" + (this.state.theme === "dark" ? " active" : "")
+                "dark" + (this.state.$theme === "dark" ? " active" : "")
               }
               onClick={(e) => this.handleThemeChange(e, "dark")}
             >
@@ -173,7 +172,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                 this.setState({
                   colors: { ...this.state.colors, bg: e.target.value },
                 });
-                this.setTheme(this.state.theme);
+                this.setTheme(this.state.$theme);
               }}
             />
           </div>
@@ -220,7 +219,8 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                     ...this.state.colors,
                     navbarTopGradient: {
                       top:
-                        this.state.colors.navbarTopGradient?.top || e.target.value,
+                        this.state.colors.navbarTopGradient?.top ||
+                        e.target.value,
                       bottom: e.target.value,
                     },
                   },
@@ -257,7 +257,9 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                   colors: {
                     ...this.state.colors,
                     navbarBottomGradient: {
-                      top: this.state.colors.navbarBottomGradient?.top || e.target.value,
+                      top:
+                        this.state.colors.navbarBottomGradient?.top ||
+                        e.target.value,
                       bottom: e.target.value,
                     },
                   },
@@ -293,9 +295,9 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             <div
               className="accept"
               onClick={() => {
-                this.setTheme(this.state.theme);
-                saveColorsToLS(this.state.colors, this.state.theme);
-                swipeService.backdropActive.set(false)
+                this.setTheme(this.state.$theme);
+                saveColorsToLS(this.state.colors, this.state.$theme);
+                swipeService.backdropActive.set(false);
               }}
             >
               Применить
@@ -307,9 +309,9 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                   (prevState) => {
                     return { ...prevState, colors: { ...this.initialColors } };
                   },
-                  () => this.setTheme(this.state.theme)
+                  () => this.setTheme(this.state.$theme)
                 );
-                saveColorsToLS(null, this.state.theme);
+                saveColorsToLS(null, this.state.$theme);
               }}
             >
               Сбросить

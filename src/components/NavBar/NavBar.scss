@@ -1,36 +1,46 @@
 @import "../../App.scss";
 
+
 .menu {
-  position: fixed;
+  margin: 0;
+}
+ol,
+ul.menu__list {
+  list-style: none;
   display: table;
-  width: 100vw;
+}
+ul li.menu__item { display: table-cell; }
+
+.menu__list {
+  position: fixed;
+  width: 100% !important;
   height: 2.6em;
+  padding-left: 0;
   bottom: 0;
   left: 0;
   z-index: 100;
 }
 
-.menu-item {
+.menu__item {
+margin : 0;
   @include theme(background, navbarBottomGradient);
-  display: table-cell;
-  vertical-align: middle;
   text-align: center;
   padding: 0.8em 0;
   border-right: 1px solid rgba(34, 60, 80, 0.2);
   box-shadow: 0px -9px 8px 0px rgba(34, 60, 80, 0.2);
   cursor: pointer;
+
+  &:active {
+    background-color: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(220, 220, 220, 1) 100%
+    );
+  }
 }
 
-.menu-item:active {
-  background-color: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(220, 220, 220, 1) 100%
-  );
-}
-
-.material-icons.active {
-  color:rgb(0, 117, 207);
+.menu__item_state_active span {
+  color: rgb(0, 117, 207);
   transform: rotate(360deg);
-  transition: transform .6s;
+  transition: transform 0.6s;
 }

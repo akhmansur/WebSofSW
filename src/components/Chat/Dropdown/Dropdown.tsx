@@ -17,7 +17,7 @@ type DropdownProps = {
 
 export const Dropdown = ({ children, cbs, style, classList }: DropdownProps & DefaultProps) => {
   return (
-    <div className={classList.container} style={style}>
+    <ul className='dropdownmenu' style={style}>
       {children.map((el, idx) => {
         return (
           <DropdownItem
@@ -29,7 +29,7 @@ export const Dropdown = ({ children, cbs, style, classList }: DropdownProps & De
           </DropdownItem>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
@@ -47,8 +47,8 @@ const DropdownItem = ({
   className,
 }: DropdownItemProps) => {
   return (
-    <div className={`${className}${isLast ? " last" : ""}`} onClick={clickCb}>
+    <li className={`dropdownmenu${isLast ? " last" : ""}`} onClick={clickCb}>
       {children}
-    </div>
+    </li>
   );
 };

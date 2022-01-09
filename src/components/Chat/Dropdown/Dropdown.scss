@@ -1,17 +1,22 @@
-.dropdown-menu {
+// .dropdownmenu {
+// } 
+
+ol,ul.dropdownmenu { list-style:none; }
+ul li.dropdownmenu { display:block; }
+
+ul.dropdownmenu {
   position: absolute;
+  padding-left: 0;
   background-color: white;
   color: black;
-  border-radius: 5px;
-  border: 2px solid #333;
+  border-radius: 0.5em;
+  border: 3px solid #333;
   box-shadow: 2px 2px 2px #222;
   z-index: 10;
-
   min-width: 200px;
 }
 
-.dropdown-menu-item {
-  display: block;
+li.dropdownmenu {
   padding: 10px;
 
   &:active {
