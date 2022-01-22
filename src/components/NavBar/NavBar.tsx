@@ -12,7 +12,7 @@ export const NavBar = (props: any) => {
           return (
             <li
               className={`menu__item${
-                active === idx ? " menu__item_state_active" : ""
+                active === idx ? " --active" : ""
               } material-icons`}
               key={"ul" + idx}
               onClick={() => {

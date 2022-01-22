@@ -5,11 +5,11 @@ import { commandsService } from "../../store/services/services";
 import './Commands.scss'
 
 export const Commands = () => {
-  const commands = useObservable(commandsService.commands);
+  const $commands = useObservable(commandsService.commands);
   
   return (
     <div className="commands">
-      {commands.map((el, idx) => {
+      {$commands.map((el, idx) => {
         return (
           <div
             className="command"
