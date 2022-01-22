@@ -1,10 +1,10 @@
-import React from "react";
-import { convertIndentsToHTML, convertUnicode } from "../../lib/utils";
-import { ChatMessage, Room } from "../../store/services/ChatService";
-import { chatService, progressService } from "../../store/services/services";
-import { Dropdown } from "./Dropdown/Dropdown";
-import "./Chat.scss";
-import { ChangeRoomCommand, PrevChatMessgsCommand, RoomDescrCommand, RoomListCommand, RoommatesListCommand, SendChatmessCommand, SimpleCommand } from "../../lib/commands";
+import React from 'react';
+import { convertIndentsToHTML, convertUnicode } from '../../lib/utils';
+import { ChatMessage, Room } from '../../store/services/ChatService';
+import { chatService, progressService } from '../../store/services/services';
+import { Dropdown } from './Dropdown/Dropdown';
+import './Chat.scss';
+import { ChangeRoomCommand, PrevChatMessgsCommand, RoomDescrCommand, RoomListCommand, RoommatesListCommand, SendChatmessCommand, SimpleCommand } from '../../lib/commands';
 
 type DropdownState = {
   isPrivate: boolean;
@@ -45,7 +45,7 @@ const initialState = {
     $rooms: chatService.rooms.get(),
   },
   nick: null,
-  input: "",
+  input: '',
 };
 
 class Chat extends React.Component {
@@ -68,21 +68,21 @@ class Chat extends React.Component {
       },
     });
     this.subs = [
-      chatService.roomDes.subscribe((val) => this.updateState("roomDes", val)),
-      chatService.rooms.subscribe((val) => this.updateState("rooms", val)),
+      chatService.roomDes.subscribe((val) => this.updateState('$roomDes', val)),
+      chatService.rooms.subscribe((val) => this.updateState('$rooms', val)),
       chatService.messages.subscribe((val) =>
-        this.updateState("messages", val)
+        this.updateState('$messages', val)
       ),
     ];
   }
 
   componentWillUnmount() {
-    this.subs.map((el: any) => el());
+    this.subs.map((el: {(): void}) => el());
     this.subs = [];
   }
 
 
-  updateState(name: string, getter: any): void {
+  updateState(name: string, getter: Room | Room[] | ChatMessage[]): void {
     this.setState({ chat: { ...this.state.chat, [name]: getter } });
   }
 
@@ -105,59 +105,60 @@ class Chat extends React.Component {
 
   render() {
     const pname = progressService.genCharInfo.get().pname;
-
     this.menuCbs = [
       this.getMenuCallback([false, this.state.nick, false]),
       this.getMenuCallback([true, this.state.nick, false]),
       this.getMenuCallback(
         [this.state.menuState.isPrivate, this.state.menuState.nickname, false],
-        "05 " + this.state.nick
+        '05 ' + this.state.nick
       ),
       () => RoommatesListCommand.Execute(),
       this.getMenuCallback([false, null, false]),
     ];
 
     return (
-      <div className="chat">
-        <div
-          className="chat-room-des"
-          onClick={() => RoomListCommand.Execute()}
-        >
-          <div>
-            {this.state.chat.$roomDes.name + " в комнате: " +
-              this.state.chat.$roomDes.incount + "чел."}
-            <br />
-            {this.state.chat.$roomDes.des}
-          </div>
+      <div className='chat'>
+        <section>
           <div
-            className="rooms"
-            onClick={(e: any) => {
-              if (
-                e.target.dataset &&
-                e.target.dataset?.name !== this.state.chat.$roomDes.name
-              ) {
-                ChangeRoomCommand.Execute(e.target.dataset.num);
-                RoomDescrCommand.Execute();
-              }
-            }}
+            className='chat-room-name'
+            onClick={() => RoomListCommand.Execute()}
           >
-            {this.state.chat.$rooms.map((el, idx) => {
-              return (
-                <p
-                  className="room"
-                  key={"room" + idx}
-                  data-name={el.name}
-                  data-num={el.num}
-                >
-                  {el.name + " в комнате: " + el.incount + "чел."} <br />
-                  {el.des}
-                </p>
-              );
-            })}
+            <div>
+              {this.state.chat.$roomDes.name + ' в комнате: ' +
+                this.state.chat.$roomDes.incount + 'чел.'}
+              <br />
+              {this.state.chat.$roomDes.des}
+            </div>
+            <div
+              className='chat-room-list'
+              onClick={(e: React.SyntheticEvent<HTMLElement>) => {
+                if (e.target &&
+                  e.currentTarget.dataset &&
+                  (e.currentTarget.dataset?.name !== this.state.chat.$roomDes.name)
+                ) {
+                  ChangeRoomCommand.Execute(e.currentTarget.dataset?.num || null);
+                  RoomDescrCommand.Execute();
+                }
+              }}
+            >
+              {this.state.chat.$rooms.map((el, idx) => {
+                return (
+                  <p
+                    className='chat-room-list__item'
+                    key={'chat-room-list__item' + idx}
+                    data-name={el.name}
+                    data-num={el.num}
+                  >
+                    {el.name + ' в комнате: ' + el.incount + 'чел.'} <br />
+                    {el.des}
+                  </p>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </section>
         <div
-          className="btn-history"
+          className='chat-room-history'
           onClick={() =>
             PrevChatMessgsCommand.Execute(this.chatminid.toString())
           }
@@ -165,7 +166,7 @@ class Chat extends React.Component {
           ᐱ
         </div>
         <div
-          className="room-messages"
+          className='chat-room'
           onClick={(e: any) => {
             this.setState({
               menuPos: {
@@ -174,7 +175,7 @@ class Chat extends React.Component {
               menuState: {
                 isPrivate: this.state.menuState.isPrivate,
                 nickname: this.state.menuState.nickname,
-                isShown: e.target.classList.contains("message"),
+                isShown: e.target.classList.contains('chat-room__message'),
               },
               nick: e.target.dataset.name || null,
             });
@@ -182,40 +183,40 @@ class Chat extends React.Component {
         >
           {this.state.chat.$messages.map((el, idx) => {
             if (this.chatminid > el.mid) this.chatminid = el.mid;
-            let messageCls = el.from === pname ? "self-message" : "message";
+            let messageCls = `chat-room__message${el.from === pname ? ' --self' : ''}`;
             return (
               <p
                 className={messageCls}
-                key={"chat-mess" + idx}
+                key={'chat-mess' + idx}
                 data-name={el.from}
               >
-                <span style={{ fontWeight: "bold" }}>
-                  {convertUnicode(el.dtime + " " + el.from)}
+                <span style={{ fontWeight: 'bold' }}>
+                  {convertUnicode(el.dtime + ' ' + el.from)}
                 </span>
-                <br />{" "}
-                {convertIndentsToHTML(convertUnicode(el.mtext ? el.mtext : ""))}
+                <br />{' '}
+                {convertIndentsToHTML(convertUnicode(el.mtext ? el.mtext : ''))}
               </p>
             );
           })}
           <br />
           <br />
-          <div className="bottom-group">
+          <div className='bottom-group'>
             <label htmlFor='chatmess-input'>
-              {(this.state.menuState.isPrivate ? "Приватно " : "") +
+              {(this.state.menuState.isPrivate ? 'Приватно ' : '') +
               (this.state.menuState.nickname
                 ? this.state.menuState.nickname
-                : " ")}
+                : ' ')}
             </label>
             <input id='chatmess-input'
-              className="chat-input"
+              className='chat-input'
               value={this.state.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => this.setState({ input: event.target.value })}
             />
             <button
-              className="button-send"
+              className='button-send'
               onClick={() => {
                 SendChatmessCommand.Execute(convertUnicode(this.state.input), this.state.menuState.nickname || '', this.state.menuState.isPrivate)
-                this.setState({ input: "" });
+                this.setState({ input: '' });
               }}
             >
               ▶
@@ -224,21 +225,17 @@ class Chat extends React.Component {
         </div>
         <Dropdown
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: this.state.menuPos.top || 0,
             left: this.state.menuPos.right || 0,
-            display: this.state.menuState.isShown ? "block" : "none", //switch hide/show dropdown menu
-          }}
-          classList={{
-            container: "dropdown-menu",
-            item: "dropdown-menu-item",
+            display: this.state.menuState.isShown ? 'block' : 'none', //switch hide/show dropdown menu
           }}
           cbs={this.menuCbs}
         >
           {[
-            " 📌 Ник в сообщение", "📧 Приватное сообщение",
-            " 👤 Информация о персонаже", "🔍 Кто здесь?",
-            "🧹 Очистить поля",
+            ' 📌 Ник в сообщение', '📧 Приватное сообщение',
+            ' 👤 Информация о персонаже', '🔍 Кто здесь?',
+            '🧹 Очистить поля',
           ]}
         </Dropdown>
       </div>

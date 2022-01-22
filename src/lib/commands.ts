@@ -4,6 +4,7 @@ abstract class Command {
   abstract Execute(...args: any[]): void;
 }
 
+
 export class MacroCommand extends Command {
   private commands: Command[] = [];
 
@@ -20,6 +21,7 @@ export class MacroCommand extends Command {
   }
 }
 
+
 export class GetMapCommand extends Command {
   Execute() {
     GetMapCommand.Execute();
@@ -29,6 +31,7 @@ export class GetMapCommand extends Command {
     gameClient.pushCommand("getmappoints");
   }
 }
+
 
 export class SendChatmessCommand extends Command {
   private chatmess: string | null = null;
@@ -56,6 +59,7 @@ export class SendChatmessCommand extends Command {
   }
 }
 
+
 export class SimpleCommand extends Command {
   private comm: string | null = null;
   constructor(comm?: string) {
@@ -74,6 +78,7 @@ export class SimpleCommand extends Command {
   }
 }
 
+
 export class RoomDescrCommand extends Command {
   Execute() {
     RoomDescrCommand.Execute();
@@ -83,6 +88,7 @@ export class RoomDescrCommand extends Command {
     gameClient.pushCommand("chatmess !chroom? descr");
   }
 }
+
 
 export class RoomListCommand extends Command {
   Execute() {
@@ -94,6 +100,7 @@ export class RoomListCommand extends Command {
   }
 }
 
+
 export class RoommatesListCommand extends Command {
   Execute() {
     RoommatesListCommand.Execute();
@@ -103,6 +110,7 @@ export class RoommatesListCommand extends Command {
     gameClient.pushCommand("chatmess !chroom? ulist");
   }
 }
+
 
 export class ChangeRoomCommand extends Command {
   private roomId: string | null = null;
@@ -117,11 +125,12 @@ export class ChangeRoomCommand extends Command {
     else return;
   }
 
-  static Execute(roomId: string) {
+  static Execute(roomId: string | null) {
     if (!roomId) return;
     else gameClient.pushCommand('chatmess !chroom! ' + roomId);
   }
 }
+
 
 export class GetCommandsCommand extends Command {
   Execute() {
@@ -132,6 +141,7 @@ export class GetCommandsCommand extends Command {
     gameClient.pushCommand("getcomms");
   }
 }
+
 
 export class PrevChatMessgsCommand extends Command {
   static lastMessId = '0';
@@ -148,6 +158,7 @@ export class PrevChatMessgsCommand extends Command {
     else return;
   }
 }
+
 
 type MoveSides = {
   [key: string] : string

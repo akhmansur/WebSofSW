@@ -3,11 +3,6 @@ import "./Dropdown.scss";
 
 type DefaultProps = {
   style: CSSProperties;
-  classList: {
-    container: string;
-    item: string;
-    lastItem?: string;
-  };
 }
 
 type DropdownProps = {
@@ -15,15 +10,15 @@ type DropdownProps = {
   cbs: { (e: any | null): void }[] | { (e: any | null): void };
 }
 
-export const Dropdown = ({ children, cbs, style, classList }: DropdownProps & DefaultProps) => {
+export const Dropdown = ({ children, cbs, style }: DropdownProps & DefaultProps) => {
   return (
     <ul className='dropdownmenu' style={style}>
       {children.map((el, idx) => {
         return (
           <DropdownItem
             clickCb={Array.isArray(cbs) ? cbs[idx] : cbs}
-            className={classList.item}
-            key={classList.item + idx}
+            className='dropdown-menu-item'
+            key={'dropdown-menu-item' + idx}
           >
             {el}
           </DropdownItem>
