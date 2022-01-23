@@ -48,7 +48,7 @@ const initialState = {
   input: '',
 };
 
-class Chat extends React.Component {
+export class Chat extends React.Component {
   private subs: { (): void }[] = [];
   chatminid: number = 2147483647;
   state: IChatState = initialState;
@@ -131,12 +131,12 @@ class Chat extends React.Component {
             </div>
             <div
               className='chat-room-list'
-              onClick={(e: React.SyntheticEvent<HTMLElement>) => {
+              onClick={(e: any) => {
                 if (e.target &&
-                  e.currentTarget.dataset &&
-                  (e.currentTarget.dataset?.name !== this.state.chat.$roomDes.name)
+                  e.target.dataset &&
+                  (e.target.dataset?.name !== this.state.chat.$roomDes.name)
                 ) {
-                  ChangeRoomCommand.Execute(e.currentTarget.dataset?.num || null);
+                  ChangeRoomCommand.Execute(e.target.dataset?.num || null);
                   RoomDescrCommand.Execute();
                 }
               }}
@@ -201,19 +201,19 @@ class Chat extends React.Component {
           <br />
           <br />
           <div className='bottom-group'>
-            <label htmlFor='chatmess-input'>
+            <label htmlFor='bottom-group__input'>
               {(this.state.menuState.isPrivate ? 'Приватно ' : '') +
               (this.state.menuState.nickname
                 ? this.state.menuState.nickname
                 : ' ')}
             </label>
-            <input id='chatmess-input'
-              className='chat-input'
+            <input id='bottom-group__input'
+              className='bottom-group__input'
               value={this.state.input}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => this.setState({ input: event.target.value })}
             />
             <button
-              className='button-send'
+              className='bottom-group__button'
               onClick={() => {
                 SendChatmessCommand.Execute(convertUnicode(this.state.input), this.state.menuState.nickname || '', this.state.menuState.isPrivate)
                 this.setState({ input: '' });
@@ -242,5 +242,3 @@ class Chat extends React.Component {
     );
   }
 }
-
-export default Chat;

@@ -10,19 +10,12 @@ export const Console = () => {
   const [command, setCommand] = useState<string>("");
 
   return (
-    <div className="main">
+    <div className="game-log">
       {$textLog?.map((el, idx) => {
         return (
-          <div className='log-item' key={"log-item" + idx}>
+          <div className='game-log__tem' key={"log-item" + idx}>
             {convertIndentsToHTML(el)}
-            <hr
-              style={{
-                borderBottom: "2px dashed black",
-                borderTop: "none",
-                marginLeft: '0',
-                width: '90%',
-              }}
-            />
+            <hr/>
             <br />
             <br />
           </div>
@@ -30,12 +23,12 @@ export const Console = () => {
       })}
       <div className="bottom-group">
         <input
-          className="chat-input"
+          className="bottom-group__input"
           value={command}
           onChange={(event) => setCommand(event.target.value)}
         />
         <button
-          className="button-send"
+          className="bottom-group__button"
           onClick={() => {
             SimpleCommand.Execute(command)
             gameService.addToLog([command]);

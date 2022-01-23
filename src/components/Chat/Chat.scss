@@ -59,7 +59,7 @@
 
 .chat-room {
   position: fixed;
-  max-height: 100%;
+  max-height: calc(100% - 2.6em);
   width: 100%;
   overflow-y: scroll;
   &::-webkit-scrollbar {
