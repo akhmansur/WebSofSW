@@ -4,7 +4,7 @@ import convert from "xml-js";
 import { parseData } from "./parser";
 import { StorageFC } from "./storage";
 import { v4 as uuidv4 } from "uuid";
-import { chatService } from "../store/services/services";
+import { chatService, swipeService } from "../store/services/services";
 
 export class GameClient {
   private client: Client;
@@ -14,9 +14,9 @@ export class GameClient {
   private tock: number = 0;
   private loop: NodeJS.Timer | null = null;
 
-  private constructor(client: Client, commands?: string[]) {
+  private constructor(client: Client, commands: string[]= []) {
     this.client = client;
-    this.commands = commands || [];
+    this.commands = commands;
     chatService.lastMessId.subscribe((val: number) => this.setLastMessId(val.toString()))
     const lc = StorageFC.getStorage("LocalStorage");
     let deviceId = lc.getItem("deviceId");
@@ -78,8 +78,10 @@ export class GameClient {
     try {
       if (elem) {
         this.tick = 0;
+        swipeService.isLoading.set(true)
         const res = await this.client.sendCommand(elem);
         parseData(res);
+        swipeService.isLoading.set(false)
       } else {
         if (this.tock < 16) {
           if (this.tick > 4) {

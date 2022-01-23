@@ -1,39 +1,38 @@
-import React, { useState } from "react";
-import "./CommandButtons.scss";
-import { Command } from "../../../store/services/CommandsService";
-import { SimpleCommand } from "../../../lib/commands";
+import React from 'react';
+import './CommandButtons.scss';
+import { Command } from '../../../store/services/CommandsService';
+import { SimpleCommand } from '../../../lib/commands';
+import { useInput } from '../../../lib/hooks/useInput';
 
 interface CmdBtnsProps {
   buttons: Command[];
 }
 
 export const CommandButtons = ({ buttons }: CmdBtnsProps) => {
-  const [command, setCommand] = useState<string>("");
+  const {value, reset, bind} = useInput('');
+
   return (
-    <section className="game-actions">
+    <section className='game-actions'>
       {buttons.map((el, idx) => {
-        if (el.kay === "name" || el.kay === "X") {
+        if (el.kay === 'name' || el.kay === 'X') {
           return (
             <>
               <input
-                className="game-actions__input minion"
-                value={command}
-                key={"cmd-buttons" + idx}
-                onChange={(e) => {
-                  setCommand(e.target.value);
-                }}
+                className='game-actions__input minion'
+                key={'cmd-buttons' + idx}
                 onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    setCommand("");
-                    SimpleCommand.Execute(command);
+                  if (e.key === 'Enter') {
+                    reset()
+                    SimpleCommand.Execute(value);
                   }
                 }}
+                {...bind}
               />
               <button
-                className="game-actions__button"
-                onClick={(e) => {
-                  setCommand("");
-                  SimpleCommand.Execute(command);
+                className='game-actions__button minion'
+                onClick={() => {
+                  reset()
+                  SimpleCommand.Execute(value);
                 }}
               >
                 OK
@@ -43,11 +42,9 @@ export const CommandButtons = ({ buttons }: CmdBtnsProps) => {
         }
         return (
           <button
-            className="game-actions__button minion"
-            key={"cmdBtn" + idx}
-            onClick={() => {
-              SimpleCommand.Execute(el.kay);
-            }}
+            className='game-actions__button minion'
+            key={'cmdBtn' + idx}
+            onClick={() => SimpleCommand.Execute(el.kay)}
           >
             {el.ctxt}
           </button>

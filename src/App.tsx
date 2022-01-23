@@ -6,16 +6,20 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { Game } from "./components/Game/Game";
 import { Commands } from "./components/Commands/Commands";
 import { Console } from "./components/Console/Console";
-import Chat from "./components/Chat/Chat";
+import { Chat } from "./components/Chat/Chat";
 import { gameClient } from "./lib/clients";
 import { Settings } from "./components/Settings/Settings";
 import { swipeService } from "./store/services/services";
+import { Loader } from "./components/Loader/Loader";
+import { useObservable } from "./store/observableHook/observableHook";
 
 export const App = () => {
   useEffect(() => {
     gameClient.startInterval();
     return () => gameClient.clearInterval();
   }, []);
+  const $isLoading = useObservable(swipeService.isLoading)
+  const $isActive = useObservable(swipeService.backdropActive)
   let fragmentsAmount = 3;
   let menuIcons: string[] = [
     "sports_esports",
@@ -40,8 +44,9 @@ export const App = () => {
           <Console></Console>
         </div>
       </SwipeListener>
-      <Settings isActive={swipeService.backdropActive.get()} />
+      <Settings isActive={$isActive} />
       <NavBar frProps={menuIcons} amount={fragmentsAmount} />
+      <Loader isLoading={$isLoading}/>
     </>
   );
 };

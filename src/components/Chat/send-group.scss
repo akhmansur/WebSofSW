@@ -6,36 +6,37 @@
   display: flex;
   justify-content: flex-end;
   align-items:center;
-  padding: 2em;
   bottom: 3em;
   right: 0;
-  // padding-bottom: 4em;
+  padding: 1em;
 }
 
-.chat-input {
+.bottom-group__input {
   @include theme(background-color, bg);
-  @include theme(border, textColor, 2px solid);
-  @include theme(box-shadow, shadow, 2px 4px 8px 0px);
-  padding: 0.5em;
-  border-radius: 0.5rem;
   width: 100%;
   font-size: 1rem;
   font-family: 'Minion';
+  @include theme(border, textColor, 2px solid);
+  border-radius: 0.5rem;
+  @include theme(box-shadow, shadow, 2px 4px 8px 0px);
+  padding: 0.5em;
+  transition: background 0.3s ease-in 0s;
 
   &:focus {
+    background-color: white;
     outline: none;
     border-color: royalblue;
-    background-color: white;
+    transition: background 0.3s ease-in 0s;
   }
 }
 
-.button-send {
-  position: absolute;
+.bottom-group__button {
   @include button-reset;
+  position: absolute;
   font-size: 1.5em;
+  @include theme(border-left, textColor, 2px solid);
   padding: 0 1em;
   margin-right: 2px;
-  @include theme(border-left, textColor, 2px solid);
 
   &:active {
     color: royalblue;

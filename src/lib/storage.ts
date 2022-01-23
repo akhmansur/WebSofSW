@@ -8,7 +8,7 @@ export class StorageFC {
   };
 
   public static getStorage(storageName: string) {
-    return this.storagesList[storageName]();
+    return this.storagesList[storageName]() || null;
   }
 }
 

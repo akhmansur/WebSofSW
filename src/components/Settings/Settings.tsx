@@ -1,6 +1,6 @@
 import React from "react";
 import { SimpleCommand } from "../../lib/commands";
-import { LocalStorage } from "../../lib/storage";
+import { LocalStorage, StorageFC } from "../../lib/storage";
 import { settingsService, swipeService } from "../../store/services/services";
 import "./Settings.scss";
 
@@ -93,7 +93,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
           .trim(),
       },
     });
-    LocalStorage.getInstance().setItem("currentTheme", theme);
+    StorageFC.getStorage('LocalStorage')?.setItem("currentTheme", theme);
     SimpleCommand.Execute("SETTINGS swtheme");
   }
 
@@ -142,7 +142,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       >
         <div className="settings">
           <p className="settings-title">Настройки</p>
-          <div className="theme-buttons">
+          <div className="settings__theme-buttons">
             <span>Тема: </span>
             <button
               className={
@@ -162,7 +162,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             </button>
           </div>
           <br />
-          <div className="color-box">
+          <div className="settings__color-box">
             <label htmlFor="bg-color">Цвет фона: </label>
             <input
               type="color"
@@ -176,7 +176,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               }}
             />
           </div>
-          <div className="color-box">
+          <div>
             Цвет текста:{" "}
             <input
               type="color"
@@ -191,7 +191,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               }}
             />
           </div>
-          <div className="color-box">
+          <div>
             Градиент верхней панели:{" "}
             <input
               type="color"
@@ -228,7 +228,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               }}
             />
           </div>
-          <div className="color-box">
+          <div>
             Градиент нижней панели:{" "}
             <input
               type="color"
@@ -267,7 +267,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               }}
             />
           </div>
-          <div className="color-box">
+          <div>
             Цвет фона сообщений:{" "}
             <input
               type="color"
@@ -279,7 +279,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               }}
             />
           </div>
-          <div className="color-box">
+          <div>
             Цвет фона своих сообщений:{" "}
             <input
               type="color"
